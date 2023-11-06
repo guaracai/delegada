@@ -13,6 +13,22 @@ const nomesDosMeses = [
 ];
 
 const feriadosAnuais = {
+  '0': {'1': 'Ano Novo'}, // Janeiro: Ano Novo
+  '1': {}, // Fevereiro: (sem feriados fixos)
+  '2': {}, // Março: (sem feriados fixos)
+  '3': {'21': 'Tiradentes'}, // Abril: Tiradentes
+  '4': {'1': 'Dia do Trabalhador'}, // Maio: Dia do Trabalhador
+  '5': {}, // Junho: (sem feriados fixos)
+  '6': {'9': 'Revolução Constitucionalista'}, // Julho: Revolução Constitucionalista (feriado estadual em SP)
+  '7': {}, // Agosto: (sem feriados fixos)
+  '8': {'7': 'Independência do Brasil'}, // Setembro: Independência do Brasil
+  '9': {'12': 'Nossa Senhora Aparecida'}, // Outubro: Nossa Senhora Aparecida
+  '10': {'2': 'Finados', '15': 'Proclamação da República'}, // Novembro: Finados e Proclamação da República
+  '11': {'25': 'Natal'}, // Dezembro: Natal
+};
+
+
+/*const feriadosAnuais = {
   '0': ['1'], // Janeiro: Ano Novo
   '1': [], // Fevereiro: (sem feriados fixos)
   '2': [], // Março: (sem feriados fixos)
@@ -25,7 +41,7 @@ const feriadosAnuais = {
   '9': ['12'], // Outubro: Nossa Senhora Aparecida
   '10': ['2', '15'], // Novembro: Finados e Proclamação da República
   '11': ['25'], // Dezembro: Natal
-};
+};*/
 
 function formatarChaveData(ano, mes, dia) {
   return `${ano}-${mes + 1}-${dia}`;
