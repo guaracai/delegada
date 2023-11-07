@@ -1,6 +1,4 @@
-
-
-let hoje = new Date();
+ new Date();
 let anoAtual = hoje.getFullYear();
 let mesAtual = hoje.getMonth();
 let diaAtual = hoje.getDate();
@@ -12,7 +10,7 @@ const nomesDosMeses = [
   "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
 ];
 
-  const feriadosAnuais = {
+const feriadosAnuais = {
   '0': ['1'], // Janeiro: Ano Novo
   '1': [], // Fevereiro: (sem feriados fixos)
   '2': [], // Março: (sem feriados fixos)
@@ -178,3 +176,4 @@ window.addEventListener('load', function() {
   montarCalendario();
   configurarNavegacao();
 });
+ChatGPT
