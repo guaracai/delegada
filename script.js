@@ -1,4 +1,4 @@
- new Date();
+let hoje = new Date();
 let anoAtual = hoje.getFullYear();
 let mesAtual = hoje.getMonth();
 let diaAtual = hoje.getDate();
@@ -12,7 +12,7 @@ const nomesDosMeses = [
 
 const feriadosAnuais = {
   '0': ['1'], // Janeiro: Ano Novo
-  '1': [], // Fevereiro: (sem feriados fixos)
+  '1': ['13'], // Carnaval Fevereiro: 
   '2': [], // Março: (sem feriados fixos)
   '3': ['6', '21', '26', '30'], // Abril: Tiradentes
   '4': ['1'], // Maio: Dia do Trabalhador
@@ -176,4 +176,3 @@ window.addEventListener('load', function() {
   montarCalendario();
   configurarNavegacao();
 });
-ChatGPT
