@@ -1,150 +1,140 @@
 body {
-    background-color: #e8eff5;
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    height: 100vh;
-    padding-top: 5vh;
-}
+    background: #f4f4f4;
+  }
 
-.container {
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    position: relative;
-    margin: auto; /* Centraliza o container na tela */
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centraliza o conteúdo no eixo cross-axis */
-}
 
-#calendario-container,
-#info-container {
-    border-radius: 8px;
-    width: 352px; /* Largura fixa para ambos os contêineres */
-    margin-bottom: 50px; /* Espaçamento entre os contêineres */
-}
-
-.calendar-header {
+  .container {
     display: flex;
-    justify-content: space-evenly;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* Alinha os itens à esquerda */
+    height: 200px;
+    margin-top: 30px
+  }
+  
+  .calendar,
+.event-details {
+  box-sizing: border-box;
+  max-width: 400px; /* Largura fixa para manter o aspecto quadrado */
+  padding: 20px;
+  margin-right: 20px; /* Adiciona espaço à direita de cada seção */
+}
+  
+  .calendar {
+    max-width: 400px; /* Ajuste para a largura desejada do calendário */
+   
+  }
+  .event-details {
+    box-sizing: border-box;
+    width: 400px; /* Largura fixa */
+    max-width: 400px; /* Largura máxima fixa */
+    padding: 20px;
+    background: #fff;
+    margin-right: 20px; /* Espaço à direita */
+    /* ... */
+  }
+  
+  /*.event-details {
+    max-width: 350px;
+    background: #fff;
+  }*/
+  
+  .header {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .navigation {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    padding: 10px;
-    background-color: #f8f8f8;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-}
-
-button {
-    padding: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .navigation button {
+    background: #007bff;
+    color: white;
     border: none;
-    background-color: #e6e6e6;
-    border-radius: 5px;
+    padding: 10px 15px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    color: #333;
-}
-
-button:hover {
-    background-color: #ff6347;
-    color: white;
-}
-
-#calendario {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-#calendario td {
-    border: 2px solid #e0e0e0;
-    padding: 10px;
+  }
+  
+  .navigation button:focus {
+    outline: none;
+  }
+  
+  .weekdays {
+    display: flex;
+    justify-content: space-between;
+    background-color: #f0f0f0;
+    padding: 10px 0;
+  }
+  
+  .weekdays div {
     text-align: center;
-    cursor: pointer;
-}
-
-#calendario td:hover {
-    background-color: #d1eaff;
-}
-
-#calendario td.comEvento {
-    background-color: #1e90ff;
-    color: white;
-}
-
-#calendario td.hoje {
-    background-color: #1e90ff;
-    color: white;
-    font-weight: bold;
-}
-
-#calendario td.feriado {
-    background-color: #ff6347; /* Cor de destaque para os feriados */
-}
-
-#calendario td.feriado:hover {
-    background-color: #ffcccc; /* Mantém a cor de fundo dos feriados ao passar o mouse */
-}
-
-#info {
-    color: #1e90ff;
-    font-weight: bold;
-    text-align: center;
-    line-height: 2.6;
-}
-
-#listaTarefas {
-    list-style: none; /* Remove marcadores de lista */
-    padding: 18px;
-    margin: 0px;
-}
-
-#listaTarefas li {
-    border-bottom: 1px solid #e0e0e0; /* Adiciona uma linha entre as tarefas */
+    flex-basis: 14.28%;
+  }
+  
+  .days {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .day {
+    width: 14.28%; /* 7 dias da semana, então 100% / 7 = 14.28% */
+    height: 80px; /* Altura fixa para manter o layout uniforme */
     padding: 10px;
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    text-align: center;
+    background-color: #fff;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .has-event {
+    background-color: #7597bd; /* Um leve destaque para dias com eventos */
     cursor: pointer;
-}
+  }
+  
+  .has-event:hover {
+    background-color: #FF6347;
+  }
+  
+  .event-details ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .event-details li {
+    margin-bottom: 10px;
+    background: #f9f9f9;
+    padding: 10px;
+    border-left: 5px solid #3d5774; /* Um destaque lateral para cada evento */
+  }
 
-#listaTarefas li button {
-    margin-left: 10px;
-    padding: 5px 10px;
-}
+  .current-day {
+    background-color: #a2d5f2; /* ou qualquer outra cor para destacar o dia atual */
+    font-weight: bold;
+  }
 
-#listaTarefas li button:hover {
-    background-color: #ff6347;
-    color: white;
-}
-
-#calendario tr:not(:first-child) td:first-child {
-    color: red;
-}
-
-@media (max-width: 768px) {
-    .container {
-        position: static;
-        width: 95%;
-        height: auto;
-        margin-top: 10px;
-        padding-top: 0;
+  .sunday {
+    background-color: red; /* ou qualquer cor que você prefira */
+    color: white; /* Para melhor contraste do texto */
+  }
+  
+  
+  
+  @media (max-width: 768px) {
+    /* Remova as regras que alteram a largura para que o calendário mantenha o tamanho fixo */
+    .calendar,
+    .event-details {
+      margin-right: 0; /* Ajuste a margem no layout responsivo, se necessário */
     }
-
-    #calendario-container,
-    #info-container {
-        width: 95%; /* Ocupa a maior parte da tela em dispositivos móveis */
-        margin-bottom: 10px; /* Reduz o espaçamento entre os contêineres */
-    }
-
-    .calendar-header {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .calendar-header button {
-        width: 100%;
-        margin-bottom: 5px;
-    }
-    /* As regras para .feriado estão acima e aplicam-se a todas as resoluções de tela */
-}
-
+    
+  }

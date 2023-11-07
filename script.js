@@ -1,178 +1,165 @@
-let hoje = new Date();
-let anoAtual = hoje.getFullYear();
-let mesAtual = hoje.getMonth();
-let diaAtual = hoje.getDate();
+document.addEventListener('DOMContentLoaded', function() {
+    const mockEventDatabase = {
+      '2023-11-01': [
+        { title: 'Reunião de Equipe', description: 'Reunião mensal com a equipe.' }
+      ],
 
-let eventos = {};
+      '2023-11-15': [
+        { title: 'Feriado', description: 'Proclamação da República' }
+        
+      ],      
 
-const nomesDosMeses = [
-  "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
-  "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
-];
-
-const feriadosAnuais = {
-  '0': ['1'], // Janeiro: Ano Novo
-  '1': ['13'], // Carnaval Fevereiro: 
-  '2': [], // Março: (sem feriados fixos)
-  '3': ['6', '21', '26', '30'], // Abril: Tiradentes
-  '4': ['1'], // Maio: Dia do Trabalhador
-  '5': [], // Junho: (sem feriados fixos)
-  '6': ['9'], // Julho: Revolução Constitucionalista (feriado estadual em SP)
-  '7': [], // Agosto: (sem feriados fixos)
-  '8': ['7'], // Setembro: Independência do Brasil
-  '9': ['12'], // Outubro: Nossa Senhora Aparecida
-  '10': ['2', '15'], // Novembro: Finados e Proclamação da República
-  '11': ['25'], // Dezembro: Natal
-};
-
-function formatarChaveData(ano, mes, dia) {
-  return `${ano}-${mes + 1}-${dia}`;
-}
-
-function carregarEventos() {
-  try {
-    const eventosSalvos = localStorage.getItem('eventos');
-    if (eventosSalvos) {
-      eventos = JSON.parse(eventosSalvos);
+      '2024-04-06': [
+        { title: 'Aniversário', description: 'Silvia' },
+        
+      ],
+        
+      '2024-04-30': [
+        { title: 'Aniversário', description: 'Nathalia' },
+        
+      ],
+        
+      '2024-01-01': [
+        { title: 'Feriado', description: 'Ano Novo' },
+        
+      ],
+        
+      '2024-02-13': [
+        { title: 'Feriado', description: 'Carnaval' },
+        
+      ],
+        
+      '2023-11-02': [
+        { title: 'Atividade Delegada', description: 'Cb PM Costa e Cb PM Celio das 09:00 às 17:00' },
+        { title: 'Atividade Delegada', description: 'Cb PM Roberto e Sd PM Caldato das 15:59 às 23:59' }
+        
+      ],
+        
+      '2023-11-03': [
+        { title: 'Atividade Delegada', description: 'Cb PM Roberto e Sd PM Caldato das 18:00 às 02:00 Delegada' },
+        
+      ],
+        
+      '2023-11-04': [
+        { title: 'Atividade Delegada', description: 'Cb PM Cb PM Carlos e Cb PM Beraldo das 18:00 às 02:00' },
+        
+      ],
+        
+      '2023-11-05': [
+        { title: 'Atividade Delegada', description: 'Cb PM Cb PM Costa e Sd PM Valentim das 15:59 às 23:59' },
+        
+      ],
+        
+      '2023-11-09': [
+        { title: 'Atividade Delegada', description: 'Cb PM Cb Cb PM Celio e Sd PM Valentim das 15:59 às 23:59' },
+        
+      ],
+        
+      '2023-11-10': [
+        { title: 'Atividade Delegada', description: 'Cb PM Costa e Cb PM Celio das 18:00 Às 02:00' },
+        
+      ],
+        
+      '2023-11-11': [
+        { title: 'Atividade Delegada', description: 'Cb PM Cb PM Marta e Sd PM Caldato das 18:00 às 02:00' },
+        
+      ],
+        
+      '2023-11-12': [
+        { title: 'Atividade Delegada', description: 'Cb Cb PM Roberto e Sd PM Zacarin das 15:59' },
+        
+      ]
+      
+          
+    };
+  
+    const currentMonthYear = document.getElementById('current-month-year');
+    const daysContainer = document.querySelector('.days');
+    
+    let today = new Date(2023, 10, 7);
+    let currentDate = new Date(today);
+  
+    function updateMonthYearDisplay(date) {
+      const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+                          "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+      currentMonthYear.textContent = `${monthNames[date.getMonth()]} ${date.getFullYear()}`;
     }
-  } catch (error) {
-    console.error("Erro ao carregar eventos:", error);
-  }
-}
-
-function salvarEventos() {
-  localStorage.setItem('eventos', JSON.stringify(eventos));
-}
-
-function criarBotao(texto, handler) {
-  let button = document.createElement('button');
-  button.innerText = texto;
-  button.onclick = handler;
-  return button;
-}
-
-function adicionarEvento(chaveData, evento) {
-  if (!eventos[chaveData]) {
-    eventos[chaveData] = [];
-  }
-  eventos[chaveData].push(evento);
-  salvarEventos();
-  mostrarEventos(chaveData.split('-')[2]);
-}
-
-function editarEvento(chaveData, index) {
-  let novoEvento = prompt("Editar seu evento", eventos[chaveData][index]);
-  if (novoEvento !== null) {
-    eventos[chaveData][index] = novoEvento;
-    salvarEventos();
-    mostrarEventos(chaveData.split('-')[2]);
-  }
-}
-
-function excluirEvento(chaveData, index) {
-  eventos[chaveData].splice(index, 1);
-  if (eventos[chaveData].length === 0) {
-    delete eventos[chaveData];
-  }
-  salvarEventos();
-  mostrarEventos(chaveData.split('-')[2]);
-}
-
-function selecionarDia(dia) {
-  let chaveData = formatarChaveData(anoAtual, mesAtual, dia);
-  mostrarEventos(dia);
-  let evento = prompt("Adicione um evento ou deixe em branco");
-  if (evento) {
-    adicionarEvento(chaveData, evento);
-  }
-}
-
-function mostrarEventos(dia) {
-  let chaveData = formatarChaveData(anoAtual, mesAtual, dia);
-  const listaTarefas = document.getElementById('listaTarefas');
-  listaTarefas.innerHTML = '';
-
-  if (eventos[chaveData]) {
-    eventos[chaveData].forEach((evento, index) => {
-      let itemTarefa = document.createElement('li');
-      itemTarefa.innerText = evento;
-      itemTarefa.appendChild(criarBotao('Editar', () => editarEvento(chaveData, index)));
-      itemTarefa.appendChild(criarBotao('Excluir', () => excluirEvento(chaveData, index)));
-      listaTarefas.appendChild(itemTarefa);
-    });
-  } else {
-    listaTarefas.innerHTML = '<li>Nenhum evento para esta data.</li>';
-  }
-}
-function adicionarFeriadosComoEventos() {
-  for (const mes in feriadosAnuais) {
-    feriadosAnuais[mes].forEach(dia => {
-      const chaveData = formatarChaveData(anoAtual, parseInt(mes), parseInt(dia));
-      if (!eventos[chaveData]) {
-        eventos[chaveData] = ['Feriado'];
+  
+    function clearCalendar() {
+      daysContainer.innerHTML = '';
+    }
+  
+    function addEmptyCells(startIndex) {
+      for (let i = 0; i < startIndex; i++) {
+        const emptyCell = document.createElement('div');
+        emptyCell.className = 'day empty';
+        daysContainer.appendChild(emptyCell);
       }
+    }
+  
+    function addDayCells(year, month) {
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      for (let day = ' '; day <= daysInMonth; day++) {
+        const dayElement = document.createElement('div');
+        dayElement.className = 'day';
+        dayElement.textContent = day;
+  
+        if (day === today.getDate() && month === today.getMonth() && year === today.getFullYear()) {
+          dayElement.classList.add('current-day');
+        }
+
+        if (new Date(year, month, day).getDay() === 0) { // 0 representa o domingo
+            dayElement.classList.add('sunday');
+          }
+  
+        const dateKey = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        if (mockEventDatabase[dateKey]) {
+          dayElement.classList.add('has-event');
+          dayElement.addEventListener('click', function() {
+            showEventDetails(dateKey);
+          });
+        }
+        daysContainer.appendChild(dayElement);
+      }
+    }
+  
+    function showEventDetails(dateKey) {
+      const events = mockEventDatabase[dateKey];
+      const eventList = document.getElementById('event-list');
+      eventList.innerHTML = '';
+  
+      if (events) {
+        events.forEach(event => {
+          const eventItem = document.createElement('li');
+          eventItem.innerHTML = `<strong>${event.title}</strong>: ${event.description}`;
+          eventList.appendChild(eventItem);
+        });
+      } else {
+        eventList.innerHTML = '<li>Nenhum evento para este dia.</li>';
+      }
+    }
+  
+    function generateCalendarDays(date) {
+      clearCalendar();
+      updateMonthYearDisplay(date);
+  
+      const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
+      const startDayIndex = (firstDayOfMonth === 0) ? 7 : firstDayOfMonth - 1;
+  
+      addEmptyCells(startDayIndex);
+      addDayCells(date.getFullYear(), date.getMonth());
+    }
+  
+    document.getElementById('prev').addEventListener('click', function() {
+      currentDate.setMonth(currentDate.getMonth() - 1);
+      generateCalendarDays(currentDate);
     });
-  }
-  salvarEventos(); // Salva os feriados no localStorage após adicioná-los
-}
-function montarCalendario() {
-  let calendario = document.getElementById('calendario');
-  calendario.innerHTML = '';
-  let nomeDoMes = document.getElementById('nome-do-mes');
-  nomeDoMes.textContent = `${nomesDosMeses[mesAtual]} ${anoAtual}`;
-  let primeiroDiaDoMes = new Date(anoAtual, mesAtual, 1).getDay();
-  let numeroDeDiasNoMes = new Date(anoAtual, mesAtual + 1, 0).getDate();
-
-  let linha = calendario.insertRow();
-  for (let i = 0; i < primeiroDiaDoMes; i++) {
-    linha.insertCell();
-  }
-
-  for (let dia = 1; dia <= numeroDeDiasNoMes; dia++) {
-    if (linha.cells.length === 7) {
-      linha = calendario.insertRow();
-    }
-    let celulaDia = linha.insertCell();
-    celulaDia.innerText = dia;
-    let chaveData = formatarChaveData(anoAtual, mesAtual, dia);
-
-    if (eventos[chaveData]) {
-      celulaDia.classList.add('comEvento');
-    }
-    if (dia === diaAtual && mesAtual === hoje.getMonth() && anoAtual === hoje.getFullYear()) {
-      celulaDia.classList.add('hoje');
-    }
-    if (feriadosAnuais[String(mesAtual)] && feriadosAnuais[String(mesAtual)].includes(String(dia))) {
-      celulaDia.classList.add('feriado');
-    }
-    celulaDia.addEventListener('mouseover', () => mostrarEventos(dia));
-    celulaDia.addEventListener('click', () => selecionarDia(dia));
-  }
-}
-
-function configurarNavegacao() {
-  document.getElementById('btnRetroceder').addEventListener('click', function() {
-    mesAtual--;
-    if (mesAtual < 0) {
-      mesAtual = 11;
-      anoAtual--;
-    }
-    montarCalendario();
+  
+    document.getElementById('next').addEventListener('click', function() {
+      currentDate.setMonth(currentDate.getMonth() + 1);
+      generateCalendarDays(currentDate);
+    });
+  
+    generateCalendarDays(currentDate);
   });
-
-  document.getElementById('btnAvancar').addEventListener('click', function() {
-    mesAtual++;
-    if (mesAtual > 11) {
-      mesAtual = 0;
-      anoAtual++;
-    }
-    montarCalendario();
-  });
-}
-
-// Inicialização
-window.addEventListener('load', function() {
-  carregarEventos();
-  montarCalendario();
-  configurarNavegacao();
-});
+  

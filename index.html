@@ -1,36 +1,59 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendário Delegada</title>
-    <link rel="stylesheet" href="style.css">
-
-    
-    
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calendário Corporativo</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div id="calendario-container" class="calendario-lado">
-    <header class="calendar-header">
-        <button id="btnRetroceder" aria-label="Mês anterior">← Mês Anterior</button>
-        <span id="nome-do-mes"></span>
-        <button id="btnAvancar" aria-label="Próximo mês">Próximo Mês →</button>
-    </header>
-    <table id="calendario">
-        <!-- As células do calendário serão injetadas aqui pelo JavaScript -->
-    </table>
-</div>
-
-<div id="info-container" class="informacoes-lado">
-    <div id="info">Clique em uma data para ver informações</div>
-    <ul id="listaTarefas">
-        <!-- As tarefas serão injetadas aqui pelo JavaScript -->
+<div class="container">
+  <div class="calendar">
+    <div class="navigation">
+      <button id="prev">&lt;</button>
+      <span id="current-month-year">Novembro 2023</span>
+      <button id="next">&gt;</button>
+    </div>
+    <div class="weekdays">
+        <div>Dom</div>
+        <div>Seg</div>
+        <div>Ter</div>
+        <div>Qua</div>
+        <div>Qui</div>
+        <div>Sex</div>
+        <div>Sáb</div>
+    </div>
+    <div class="days">
+      <!-- Dias do calendário serão gerados aqui -->
+    </div>
+  </div>
+  
+  <div class="event-details">
+    <ul id="event-list">
+      <!-- Lista de detalhes de eventos será inserida aqui -->
     </ul>
+  </div>
 </div>
-
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyDObOHGFVzFoXLgx9TBg8M79HtmQkrzBHk",
+      authDomain: "delegadaguaracai.firebaseapp.com",
+      projectId: "delegadaguaracai",
+      storageBucket: "delegadaguaracai.appspot.com",
+      messagingSenderId: "279841736016",
+      appId: "1:279841736016:web:b5a8a59a7d8556fbc51855"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+  </script>
 <script src="script.js"></script>
-
-
 </body>
 </html>
