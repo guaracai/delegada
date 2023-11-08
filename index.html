@@ -9,6 +9,22 @@
 <body>
 
 <div class="container">
+  <div class="add-event-container">
+    <h2>Adicionar Novo Evento</h2>
+    <form id="add-event-form">
+      <label for="event-date">Data:</label>
+      <input type="date" id="event-date" name="event-date" required>
+  
+      <label for="event-title">Título:</label>
+      <input type="text" id="event-title" name="event-title" required>
+  
+      <label for="event-description">Descrição:</label>
+      <textarea id="event-description" name="event-description" required></textarea>
+  
+      <button type="submit">Adicionar Evento</button>
+    </form>
+  </div>
+  
   <div class="calendar">
     <div class="navigation">
       <button id="prev">&lt;</button>
